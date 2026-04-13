@@ -28,6 +28,7 @@ import { parseStaticElementRef } from './element-ref';
 import {
   parseStaticEncapsulation,
   parseStaticPatches,
+  parseStaticReferenceTarget,
   parseStaticShadowDelegatesFocus,
   parseStaticShadowMode,
   parseStaticSlotAssignment,
@@ -119,6 +120,7 @@ export const parseStaticComponentMeta = (
     encapsulation,
     shadowDelegatesFocus: !!parseStaticShadowDelegatesFocus(encapsulation, staticMembers),
     shadowMode: parseStaticShadowMode(encapsulation, staticMembers),
+    referenceTarget: parseStaticReferenceTarget(encapsulation, staticMembers),
     slotAssignment: parseStaticSlotAssignment(encapsulation, staticMembers),
     patches: parseStaticPatches(encapsulation, staticMembers),
     properties,

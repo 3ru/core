@@ -19,6 +19,10 @@ export const addHydrateRuntimeCmpMeta = (
     $lazyBundleId$: fakeBundleIds(cmp),
     $attrsToReflect$: getHydrateAttrsToReflect(cmp),
   };
+  const referenceTarget = compactMeta[7];
+  if (typeof referenceTarget === 'string') {
+    cmpMeta.$referenceTarget$ = referenceTarget;
+  }
   // We always need shadow-dom shim in hydrate runtime
   if (cmpMeta.$flags$ & CMP_FLAGS.shadowDomEncapsulation) {
     // TODO(STENCIL-854): Remove code related to legacy shadowDomShim field

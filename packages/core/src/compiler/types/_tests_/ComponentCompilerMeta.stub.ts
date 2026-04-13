@@ -91,6 +91,7 @@ export const stubComponentCompilerMeta = (
   potentialCmpRefs: [],
   properties: [],
   serializers: [],
+  referenceTarget: null,
   shadowDelegatesFocus: false,
   shadowMode: null,
   slotAssignment: null,

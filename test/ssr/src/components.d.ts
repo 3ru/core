@@ -36,6 +36,8 @@ export namespace Components {
     }
     interface CmpDsdFocus {
     }
+    interface CmpDsdReferenceTarget {
+    }
     interface CmpServerVsClient {
     }
     interface CmpWithSlot {
@@ -283,6 +285,12 @@ declare global {
         prototype: HTMLCmpDsdFocusElement;
         new (): HTMLCmpDsdFocusElement;
     };
+    interface HTMLCmpDsdReferenceTargetElement extends Components.CmpDsdReferenceTarget, HTMLStencilElement {
+    }
+    var HTMLCmpDsdReferenceTargetElement: {
+        prototype: HTMLCmpDsdReferenceTargetElement;
+        new (): HTMLCmpDsdReferenceTargetElement;
+    };
     interface HTMLCmpServerVsClientElement extends Components.CmpServerVsClient, HTMLStencilElement {
     }
     var HTMLCmpServerVsClientElement: {
@@ -513,6 +521,7 @@ declare global {
         "car-list": HTMLCarListElement;
         "cmp-dsd": HTMLCmpDsdElement;
         "cmp-dsd-focus": HTMLCmpDsdFocusElement;
+        "cmp-dsd-reference-target": HTMLCmpDsdReferenceTargetElement;
         "cmp-server-vs-client": HTMLCmpServerVsClientElement;
         "cmp-with-slot": HTMLCmpWithSlotElement;
         "complex-properties": HTMLComplexPropertiesElement;
@@ -579,6 +588,8 @@ declare namespace LocalJSX {
         "initialCounter"?: number;
     }
     interface CmpDsdFocus {
+    }
+    interface CmpDsdReferenceTarget {
     }
     interface CmpServerVsClient {
     }
@@ -820,6 +831,7 @@ declare namespace LocalJSX {
         "car-list": Omit<CarList, keyof CarListAttributes> & { [K in keyof CarList & keyof CarListAttributes]?: CarList[K] } & { [K in keyof CarList & keyof CarListAttributes as `attr:${K}`]?: CarListAttributes[K] } & { [K in keyof CarList & keyof CarListAttributes as `prop:${K}`]?: CarList[K] };
         "cmp-dsd": Omit<CmpDsd, keyof CmpDsdAttributes> & { [K in keyof CmpDsd & keyof CmpDsdAttributes]?: CmpDsd[K] } & { [K in keyof CmpDsd & keyof CmpDsdAttributes as `attr:${K}`]?: CmpDsdAttributes[K] } & { [K in keyof CmpDsd & keyof CmpDsdAttributes as `prop:${K}`]?: CmpDsd[K] };
         "cmp-dsd-focus": CmpDsdFocus;
+        "cmp-dsd-reference-target": CmpDsdReferenceTarget;
         "cmp-server-vs-client": CmpServerVsClient;
         "cmp-with-slot": CmpWithSlot;
         "complex-properties": Omit<ComplexProperties, keyof ComplexPropertiesAttributes> & { [K in keyof ComplexProperties & keyof ComplexPropertiesAttributes]?: ComplexProperties[K] } & { [K in keyof ComplexProperties & keyof ComplexPropertiesAttributes as `attr:${K}`]?: ComplexPropertiesAttributes[K] } & { [K in keyof ComplexProperties & keyof ComplexPropertiesAttributes as `prop:${K}`]?: ComplexProperties[K] };
@@ -872,6 +884,7 @@ declare module "@stencil/core" {
             "car-list": LocalJSX.IntrinsicElements["car-list"] & JSXBase.HTMLAttributes<HTMLCarListElement>;
             "cmp-dsd": LocalJSX.IntrinsicElements["cmp-dsd"] & JSXBase.HTMLAttributes<HTMLCmpDsdElement>;
             "cmp-dsd-focus": LocalJSX.IntrinsicElements["cmp-dsd-focus"] & JSXBase.HTMLAttributes<HTMLCmpDsdFocusElement>;
+            "cmp-dsd-reference-target": LocalJSX.IntrinsicElements["cmp-dsd-reference-target"] & JSXBase.HTMLAttributes<HTMLCmpDsdReferenceTargetElement>;
             "cmp-server-vs-client": LocalJSX.IntrinsicElements["cmp-server-vs-client"] & JSXBase.HTMLAttributes<HTMLCmpServerVsClientElement>;
             "cmp-with-slot": LocalJSX.IntrinsicElements["cmp-with-slot"] & JSXBase.HTMLAttributes<HTMLCmpWithSlotElement>;
             "complex-properties": LocalJSX.IntrinsicElements["complex-properties"] & JSXBase.HTMLAttributes<HTMLComplexPropertiesElement>;

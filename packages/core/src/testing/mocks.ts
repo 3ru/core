@@ -101,6 +101,7 @@ export const mockComponentMeta = (
   patches: null,
   potentialCmpRefs: [],
   properties: [],
+  referenceTarget: null,
   serializers: [],
   shadowDelegatesFocus: false,
   shadowMode: null,

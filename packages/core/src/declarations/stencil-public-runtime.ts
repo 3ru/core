@@ -87,6 +87,11 @@ export interface ShadowEncapsulation {
    */
   delegatesFocus?: boolean;
   /**
+   * Identifies the element inside the shadow tree that should receive
+   * cross-root ARIA relationships from the host.
+   */
+  referenceTarget?: string;
+  /**
    * Sets the slot assignment mode for the shadow root. When set to `'manual'`, enables imperative
    * slotting using the `HTMLSlotElement.assign()` method. Defaults to `'named'` for standard
    * declarative slotting behavior.
@@ -144,6 +149,11 @@ export interface ShadowRootOptions {
    * focusable part is given focus, and the shadow host is given any available `:focus` styling.
    */
   delegatesFocus?: boolean;
+  /**
+   * Identifies the element inside the shadow tree that should receive
+   * cross-root ARIA relationships from the host.
+   */
+  referenceTarget?: string;
   /**
    * Sets the slot assignment mode for the shadow root. When set to `'manual'`, enables imperative
    * slotting using the `HTMLSlotElement.assign()` method. Defaults to `'named'` for standard

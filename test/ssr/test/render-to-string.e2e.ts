@@ -67,6 +67,19 @@ test.describe('renderToString API', () => {
     expect(html).toMatchSnapshot();
   });
 
+  test('can render a shadow component with referenceTarget metadata', async () => {
+    const { html } = await renderToString('<cmp-dsd-reference-target></cmp-dsd-reference-target>', {
+      serializeShadowRoot: true,
+      fullDocument: false,
+      clientHydrateAnnotations: false,
+    });
+
+    expect(html).toContain(
+      '<template shadowrootmode="open" shadowrootreferencetarget="internal-input">',
+    );
+    expect(html).toContain('<button id="internal-input"');
+  });
+
   test('can render nested components', async () => {
     const { html } = await renderToString(
       `<another-car-list cars='${JSON.stringify([vento, beetle])}'></another-car-list>`,

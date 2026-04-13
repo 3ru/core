@@ -26,7 +26,9 @@ export const resetDeprecatedApiWarning = () => {
  */
 interface ComponentOptionsWithDeprecated extends d.ComponentOptions {
   /** @deprecated Use `encapsulation: { type: 'shadow' }` instead */
-  shadow?: boolean | { delegatesFocus?: boolean; slotAssignment?: 'manual' | 'named' };
+  shadow?:
+    | boolean
+    | { delegatesFocus?: boolean; referenceTarget?: string; slotAssignment?: 'manual' | 'named' };
   /** @deprecated Use `encapsulation: { type: 'scoped' }` instead */
   scoped?: boolean;
   /** @deprecated Use `@AttachInternals()` decorator instead */
@@ -104,6 +106,12 @@ export const componentDecoratorToStatic = (
 
       if (enc.delegatesFocus === true) {
         newMembers.push(createStaticGetter('delegatesFocus', convertValueToLiteral(true)));
+      }
+
+      if (typeof enc.referenceTarget === 'string') {
+        newMembers.push(
+          createStaticGetter('referenceTarget', convertValueToLiteral(enc.referenceTarget)),
+        );
       }
 
       if (enc.slotAssignment === 'manual') {
@@ -213,6 +221,13 @@ const validateComponent = (
     const enc = componentOptions.encapsulation;
 
     if (enc.type === 'shadow') {
+      if (enc.referenceTarget != null && typeof enc.referenceTarget !== 'string') {
+        const err = buildError(diagnostics);
+        err.messageText = `The "referenceTarget" option must be a string.`;
+        augmentDiagnosticWithNode(err, findTagNode('referenceTarget', componentDecorator));
+        return false;
+      }
+
       // Validate slotAssignment
       if (enc.slotAssignment && enc.slotAssignment !== 'manual' && enc.slotAssignment !== 'named') {
         const err = buildError(diagnostics);
