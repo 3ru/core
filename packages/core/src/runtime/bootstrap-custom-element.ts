@@ -50,6 +50,10 @@ export const proxyCustomElement = (Cstr: any, compactMeta: d.ComponentRuntimeMet
     $flags$: compactMeta[0],
     $tagName$: compactMeta[1],
   };
+  const referenceTarget = compactMeta[7];
+  if (typeof referenceTarget === 'string') {
+    cmpMeta.$referenceTarget$ = referenceTarget;
+  }
   try {
     if (BUILD.member) {
       cmpMeta.$members$ = compactMeta[2];

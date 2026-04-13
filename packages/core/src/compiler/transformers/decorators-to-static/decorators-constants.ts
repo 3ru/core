@@ -63,6 +63,7 @@ export const STATIC_GETTER_NAMES = [
   'originalStyleUrls',
   'patches',
   'properties',
+  'referenceTarget',
   'shadowMode',
   'slotAssignment',
   'states',

@@ -11,6 +11,7 @@ import { CMP_FLAGS } from './constants';
 import { createStyleSheetIfNeededAndSupported } from './style';
 
 let globalStyleSheet: CSSStyleSheet | null | undefined;
+type ShadowRootInitWithReferenceTarget = ShadowRootInit & { referenceTarget?: string };
 
 // Constant scope ID for global styles to enable HMR tracking
 const GLOBAL_STYLE_ID = 'sc-global';
@@ -18,7 +19,7 @@ const GLOBAL_STYLE_ID = 'sc-global';
 export function createShadowRoot(this: HTMLElement, cmpMeta: d.ComponentRuntimeMeta) {
   // Determine shadow root mode - 'closed' if flag is set, otherwise 'open' (default)
   const isClosed = BUILD.shadowModeClosed && !!(cmpMeta.$flags$ & CMP_FLAGS.shadowModeClosed);
-  const opts: ShadowRootInit = { mode: isClosed ? 'closed' : 'open' };
+  const opts: ShadowRootInitWithReferenceTarget = { mode: isClosed ? 'closed' : 'open' };
 
   if (BUILD.shadowDelegatesFocus) {
     opts.delegatesFocus = !!(cmpMeta.$flags$ & CMP_FLAGS.shadowDelegatesFocus);
@@ -29,6 +30,10 @@ export function createShadowRoot(this: HTMLElement, cmpMeta: d.ComponentRuntimeM
     if (isManual) {
       opts.slotAssignment = 'manual';
     }
+  }
+
+  if (typeof cmpMeta.$referenceTarget$ === 'string') {
+    opts.referenceTarget = cmpMeta.$referenceTarget$;
   }
 
   const shadowRoot = this.attachShadow(opts);

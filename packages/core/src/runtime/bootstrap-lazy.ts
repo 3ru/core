@@ -72,6 +72,10 @@ export const bootstrapLazy = (
         $members$: compactMeta[2],
         $listeners$: compactMeta[3],
       };
+      const referenceTarget = compactMeta[7];
+      if (typeof referenceTarget === 'string') {
+        cmpMeta.$referenceTarget$ = referenceTarget;
+      }
 
       if (BUILD.member) {
         cmpMeta.$members$ = compactMeta[2];

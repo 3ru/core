@@ -3,6 +3,9 @@ import { describe, it, expect, beforeEach } from '@stencil/vitest';
 import { MockDocument } from '../document';
 import { EMPTY_ELEMENTS, serializeNodeToHtml } from '../serialize-node';
 
+type ShadowRootInitWithReferenceTarget = ShadowRootInit & { referenceTarget?: string };
+type ShadowRootWithReferenceTarget = ShadowRoot & { referenceTarget?: string };
+
 describe('serializeNodeToHtml', () => {
   let doc: MockDocument;
   beforeEach(() => {
@@ -205,6 +208,43 @@ describe('serializeNodeToHtml', () => {
         </mock:shadow-root>
       </my-tag>
     `);
+  });
+
+  it('shadow root to template with reference target', () => {
+    const elm = doc.createElement('cmp-a');
+    expect(elm.shadowRoot).toEqual(null);
+
+    const shadowRoot = elm.attachShadow({
+      mode: 'open',
+      referenceTarget: 'internal-input',
+    } as ShadowRootInitWithReferenceTarget);
+    expect(shadowRoot.nodeType).toEqual(11);
+    expect(elm.shadowRoot.nodeType).toEqual(11);
+
+    expect(shadowRoot.host).toEqual(elm);
+    expect((elm.shadowRoot as ShadowRootWithReferenceTarget).referenceTarget).toBe(
+      'internal-input',
+    );
+    expect(elm.outerHTML).toContain(
+      '<template shadowrootmode="open" shadowrootreferencetarget="internal-input">',
+    );
+  });
+
+  it('shadow root with reference target serializes to HTML', () => {
+    const elm = doc.createElement('my-tag');
+    const shadowRoot = elm.attachShadow({
+      mode: 'open',
+      referenceTarget: 'internal-input',
+    } as ShadowRootInitWithReferenceTarget);
+
+    const button = doc.createElement('button');
+    button.setAttribute('id', 'internal-input');
+    button.innerHTML = 'Focus me';
+    shadowRoot.appendChild(button);
+
+    expect(serializeNodeToHtml(elm, { outerHtml: true })).toBe(
+      `<my-tag><template shadowrootmode="open" shadowrootreferencetarget="internal-input"><button id="internal-input">Focus me</button></template></my-tag>`,
+    );
   });
 
   it('style', () => {
