@@ -48,6 +48,21 @@ export const parseStaticShadowDelegatesFocus = (
 };
 
 /**
+ * Find and return the reference target identifier for a component.
+ *
+ * @param encapsulation the encapsulation mode to use for a component
+ * @param staticMembers a collection of static getters to search
+ * @returns the reference target string when explicitly set for a shadow component; otherwise `null`
+ */
+export const parseStaticReferenceTarget = (encapsulation: string, staticMembers: ts.ClassElement[]): string | null => {
+  if (encapsulation === 'shadow') {
+    const referenceTarget: string = getStaticValue(staticMembers, 'referenceTarget');
+    return typeof referenceTarget === 'string' ? referenceTarget : null;
+  }
+  return null;
+};
+
+/**
  * Find and return the `slotAssignment` mode for a component.
  *
  * @param encapsulation the encapsulation mode to use for a component

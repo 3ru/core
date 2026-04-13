@@ -76,6 +76,11 @@ export interface ShadowRootOptions {
    */
   delegatesFocus?: boolean;
   /**
+   * Identifies the element inside the shadow tree that should receive
+   * cross-root ARIA relationships from the host.
+   */
+  referenceTarget?: string;
+  /**
    * Sets the slot assignment mode for the shadow root. When set to `'manual'`, enables imperative
    * slotting using the `HTMLSlotElement.assign()` method. Defaults to `'named'` for standard
    * declarative slotting behavior.

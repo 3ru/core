@@ -675,6 +675,12 @@ export interface ComponentCompilerMeta extends ComponentCompilerFeatures {
   serializers: ComponentCompilerChangeHandler[];
   shadowDelegatesFocus: boolean;
   /**
+   * Identifies the shadow descendant that should act as the host's reference
+   * target for cross-root ARIA relationships. Only applicable when
+   * encapsulation is 'shadow'.
+   */
+  referenceTarget: string | null;
+  /**
    * Slot assignment mode for shadow DOM. 'manual', enables imperative slotting
    * using HTMLSlotElement.assign(). Only applicable when encapsulation is 'shadow'.
    */
@@ -1721,6 +1727,9 @@ export type ComponentRuntimeMetaCompact = [
 
   /** deserializers */
   ComponentConstructorChangeHandlers?,
+
+  /** referenceTarget */
+  string?,
 ];
 
 /**
@@ -1769,6 +1778,10 @@ export interface ComponentRuntimeMeta {
    * Information about which class members have attribute > prop deserializers attached on the component.
    */
   $deserializers$?: ComponentConstructorChangeHandlers;
+  /**
+   * Identifies the shadow descendant that should act as the host's reference target.
+   */
+  $referenceTarget$?: string;
 }
 
 /**

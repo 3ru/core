@@ -541,6 +541,34 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/declarative-shadow-dom/cmp-dsd-reference-target.tsx",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "tagName": "cmp-dsd-reference-target",
+          "name": "CmpDsdReferenceTarget"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CmpDsdReferenceTarget",
+          "declaration": {
+            "name": "CmpDsdReferenceTarget"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "cmp-dsd-reference-target",
+          "declaration": {
+            "name": "CmpDsdReferenceTarget"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/declarative-shadow-dom/server-vs-client.tsx",
       "declarations": [
         {

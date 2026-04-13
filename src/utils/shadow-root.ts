@@ -8,12 +8,13 @@ import { HYDRATED_STYLE_ID } from '../runtime/runtime-constants';
 import { createStyleSheetIfNeededAndSupported } from './style';
 
 let globalStyleSheet: CSSStyleSheet | null | undefined;
+type ShadowRootInitWithReferenceTarget = ShadowRootInit & { referenceTarget?: string };
 
 // Constant scope ID for global styles to enable HMR tracking
 const GLOBAL_STYLE_ID = 'sc-global';
 
 export function createShadowRoot(this: HTMLElement, cmpMeta: d.ComponentRuntimeMeta) {
-  const opts: ShadowRootInit = { mode: 'open' };
+  const opts: ShadowRootInitWithReferenceTarget = { mode: 'open' };
 
   if (BUILD.shadowDelegatesFocus) {
     opts.delegatesFocus = !!(cmpMeta.$flags$ & CMP_FLAGS.shadowDelegatesFocus);
@@ -24,6 +25,10 @@ export function createShadowRoot(this: HTMLElement, cmpMeta: d.ComponentRuntimeM
     if (isManual) {
       opts.slotAssignment = 'manual';
     }
+  }
+
+  if (typeof cmpMeta.$referenceTarget$ === 'string') {
+    opts.referenceTarget = cmpMeta.$referenceTarget$;
   }
 
   const shadowRoot = this.attachShadow(opts);

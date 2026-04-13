@@ -401,6 +401,16 @@ describe('renderToString', () => {
     expect(await page.evaluate(() => document.activeElement.outerHTML)).toContain('cmp-dsd-focus');
   });
 
+  it('renders server-side components with referenceTarget metadata', async () => {
+    const { html } = await renderToString('<cmp-dsd-reference-target></cmp-dsd-reference-target>', {
+      serializeShadowRoot: true,
+      fullDocument: false,
+    });
+
+    expect(html).toContain('<template shadowrootmode="open" shadowrootreferencetarget="internal-input">');
+    expect(html).toContain('<button id="internal-input"');
+  });
+
   it("renders the styles of serializeShadowRoot `scoped` components when they're embedded in a shadow root", async () => {
     const { html } = await renderToString(
       `

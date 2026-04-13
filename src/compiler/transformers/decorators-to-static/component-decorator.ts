@@ -53,6 +53,11 @@ export const componentDecoratorToStatic = (
       if (componentOptions.shadow.delegatesFocus === true) {
         newMembers.push(createStaticGetter('delegatesFocus', convertValueToLiteral(true)));
       }
+      if (typeof componentOptions.shadow.referenceTarget === 'string') {
+        newMembers.push(
+          createStaticGetter('referenceTarget', convertValueToLiteral(componentOptions.shadow.referenceTarget)),
+        );
+      }
       if (componentOptions.shadow.slotAssignment === 'manual') {
         newMembers.push(createStaticGetter('slotAssignment', convertValueToLiteral('manual')));
       }
@@ -113,6 +118,17 @@ const validateComponent = (
       augmentDiagnosticWithNode(err, findTagNode('slotAssignment', componentDecorator));
       return false;
     }
+  }
+
+  if (
+    typeof componentOptions.shadow === 'object' &&
+    componentOptions.shadow.referenceTarget != null &&
+    typeof componentOptions.shadow.referenceTarget !== 'string'
+  ) {
+    const err = buildError(diagnostics);
+    err.messageText = `The "referenceTarget" option must be a string.`;
+    augmentDiagnosticWithNode(err, findTagNode('referenceTarget', componentDecorator));
+    return false;
   }
 
   const constructor = cmpNode.members.find(ts.isConstructorDeclaration);

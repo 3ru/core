@@ -22,6 +22,18 @@ class CmpA {
   }
 }
 
+@Component({
+  tag: 'cmp-reference-target',
+  shadow: {
+    referenceTarget: 'internal-input',
+  },
+})
+class CmpReferenceTarget {
+  render() {
+    return <button id="internal-input">Focus me</button>;
+  }
+}
+
 describe('shadow', () => {
   it('render with shadow-dom enabled', async () => {
     const page = await newSpecPage({
@@ -166,5 +178,23 @@ describe('shadow', () => {
         Light Content
       </cmp-a>
     `);
+  });
+
+  it('passes referenceTarget through to the shadow root', async () => {
+    const page = await newSpecPage({
+      components: [CmpReferenceTarget],
+      html: `<cmp-reference-target></cmp-reference-target>`,
+    });
+
+    expect(page.root).toEqualHtml(`
+      <cmp-reference-target>
+        <mock:shadow-root shadowrootreferencetarget="internal-input">
+          <button id="internal-input">
+            Focus me
+          </button>
+        </mock:shadow-root>
+      </cmp-reference-target>
+    `);
+    expect((page.root.shadowRoot as any).referenceTarget).toBe('internal-input');
   });
 });

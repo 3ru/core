@@ -62,6 +62,7 @@ export const formatComponentRuntimeMeta = (
     Object.keys(watchers).length > 0 ? watchers : undefined,
     Object.keys(serializers).length > 0 ? serializers : undefined,
     Object.keys(deserializers).length > 0 ? deserializers : undefined,
+    compilerMeta.referenceTarget ?? undefined,
   ]);
 };
 

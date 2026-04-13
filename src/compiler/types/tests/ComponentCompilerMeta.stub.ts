@@ -87,6 +87,7 @@ export const stubComponentCompilerMeta = (
   potentialCmpRefs: [],
   properties: [],
   serializers: [],
+  referenceTarget: null,
   shadowDelegatesFocus: false,
   slotAssignment: null,
   sourceFilePath: '/some/stubbed/path/my-component.tsx',

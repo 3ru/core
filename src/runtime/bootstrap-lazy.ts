@@ -71,6 +71,10 @@ export const bootstrapLazy = (lazyBundles: d.LazyBundlesRuntimeData, options: d.
         $members$: compactMeta[2],
         $listeners$: compactMeta[3],
       };
+      const referenceTarget = compactMeta[7];
+      if (typeof referenceTarget === 'string') {
+        cmpMeta.$referenceTarget$ = referenceTarget;
+      }
 
       // Check if we are using slots outside the shadow DOM in this component.
       // We'll use this information later to add styles for `slot-fb` elements

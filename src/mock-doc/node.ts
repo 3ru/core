@@ -240,6 +240,7 @@ export class MockNodeList {
 }
 
 type MockElementInternals = Record<keyof ElementInternals, null>;
+type ShadowRootInitWithReferenceTarget = ShadowRootInit & { referenceTarget?: string };
 
 export class MockElement extends MockNode {
   __namespaceURI: string | null;
@@ -274,9 +275,10 @@ export class MockElement extends MockNode {
     addEventListener(this, type, handler);
   }
 
-  attachShadow(_opts: ShadowRootInit) {
+  attachShadow(_opts: ShadowRootInitWithReferenceTarget) {
     const shadowRoot = this.ownerDocument.createDocumentFragment();
     shadowRoot.delegatesFocus = _opts.delegatesFocus ?? false;
+    shadowRoot.referenceTarget = _opts.referenceTarget;
     this.shadowRoot = shadowRoot;
     return shadowRoot;
   }

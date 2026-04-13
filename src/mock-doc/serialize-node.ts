@@ -80,6 +80,10 @@ export function serializeNodeToHtml(elm: Node | MockNode, serializationOptions: 
 }
 
 const shadowRootTag = 'mock:shadow-root';
+type ShadowRootWithMetadata = Node & {
+  delegatesFocus?: boolean;
+  referenceTarget?: string;
+};
 
 /**
  * Same as `serializeNodeToHtml` but returns a generator that yields the serialized
@@ -139,14 +143,21 @@ function* streamToHtml(
          */
         ('host' in node || node.nodeName.toLocaleLowerCase() === shadowRootTag)
       ) {
+        const shadowRoot = node as ShadowRootWithMetadata;
         const mode = ` shadowrootmode="open"`;
         yield mode;
         output.currentLineWidth += mode.length;
 
-        if ((node as any).delegatesFocus) {
+        if (shadowRoot.delegatesFocus) {
           const delegatesFocusAttr = ' shadowrootdelegatesfocus';
           yield delegatesFocusAttr;
           output.currentLineWidth += delegatesFocusAttr.length;
+        }
+
+        if (typeof shadowRoot.referenceTarget === 'string') {
+          const referenceTargetAttr = ` shadowrootreferencetarget="${escapeString(shadowRoot.referenceTarget, true)}"`;
+          yield referenceTargetAttr;
+          output.currentLineWidth += referenceTargetAttr.length;
         }
       }
 
@@ -169,7 +180,9 @@ function* streamToHtml(
         if (
           tag === 'template' &&
           isShadowRoot &&
-          (attrName === 'shadowrootmode' || attrName === 'shadowrootdelegatesfocus')
+          (attrName === 'shadowrootmode' ||
+            attrName === 'shadowrootdelegatesfocus' ||
+            attrName === 'shadowrootreferencetarget')
         ) {
           continue;
         }

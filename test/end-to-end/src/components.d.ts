@@ -46,6 +46,8 @@ export namespace Components {
     }
     interface CmpDsdFocus {
     }
+    interface CmpDsdReferenceTarget {
+    }
     interface CmpServerVsClient {
     }
     interface CmpWithSlot {
@@ -341,6 +343,12 @@ declare global {
         prototype: HTMLCmpDsdFocusElement;
         new (): HTMLCmpDsdFocusElement;
     };
+    interface HTMLCmpDsdReferenceTargetElement extends Components.CmpDsdReferenceTarget, HTMLStencilElement {
+    }
+    var HTMLCmpDsdReferenceTargetElement: {
+        prototype: HTMLCmpDsdReferenceTargetElement;
+        new (): HTMLCmpDsdReferenceTargetElement;
+    };
     interface HTMLCmpServerVsClientElement extends Components.CmpServerVsClient, HTMLStencilElement {
     }
     var HTMLCmpServerVsClientElement: {
@@ -626,6 +634,7 @@ declare global {
         "cmp-c": HTMLCmpCElement;
         "cmp-dsd": HTMLCmpDsdElement;
         "cmp-dsd-focus": HTMLCmpDsdFocusElement;
+        "cmp-dsd-reference-target": HTMLCmpDsdReferenceTargetElement;
         "cmp-server-vs-client": HTMLCmpServerVsClientElement;
         "cmp-with-slot": HTMLCmpWithSlotElement;
         "dom-api": HTMLDomApiElement;
@@ -707,6 +716,8 @@ declare namespace LocalJSX {
         "initialCounter"?: number;
     }
     interface CmpDsdFocus {
+    }
+    interface CmpDsdReferenceTarget {
     }
     interface CmpServerVsClient {
     }
@@ -931,6 +942,7 @@ declare namespace LocalJSX {
         "cmp-c": CmpC;
         "cmp-dsd": Omit<CmpDsd, keyof CmpDsdAttributes> & { [K in keyof CmpDsd & keyof CmpDsdAttributes]?: CmpDsd[K] } & { [K in keyof CmpDsd & keyof CmpDsdAttributes as `attr:${K}`]?: CmpDsdAttributes[K] } & { [K in keyof CmpDsd & keyof CmpDsdAttributes as `prop:${K}`]?: CmpDsd[K] };
         "cmp-dsd-focus": CmpDsdFocus;
+        "cmp-dsd-reference-target": CmpDsdReferenceTarget;
         "cmp-server-vs-client": CmpServerVsClient;
         "cmp-with-slot": CmpWithSlot;
         "dom-api": DomApi;
@@ -993,6 +1005,7 @@ declare module "@stencil/core" {
             "cmp-c": LocalJSX.IntrinsicElements["cmp-c"] & JSXBase.HTMLAttributes<HTMLCmpCElement>;
             "cmp-dsd": LocalJSX.IntrinsicElements["cmp-dsd"] & JSXBase.HTMLAttributes<HTMLCmpDsdElement>;
             "cmp-dsd-focus": LocalJSX.IntrinsicElements["cmp-dsd-focus"] & JSXBase.HTMLAttributes<HTMLCmpDsdFocusElement>;
+            "cmp-dsd-reference-target": LocalJSX.IntrinsicElements["cmp-dsd-reference-target"] & JSXBase.HTMLAttributes<HTMLCmpDsdReferenceTargetElement>;
             "cmp-server-vs-client": LocalJSX.IntrinsicElements["cmp-server-vs-client"] & JSXBase.HTMLAttributes<HTMLCmpServerVsClientElement>;
             "cmp-with-slot": LocalJSX.IntrinsicElements["cmp-with-slot"] & JSXBase.HTMLAttributes<HTMLCmpWithSlotElement>;
             "dom-api": LocalJSX.IntrinsicElements["dom-api"] & JSXBase.HTMLAttributes<HTMLDomApiElement>;
